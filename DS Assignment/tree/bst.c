@@ -55,20 +55,41 @@ struct node *minValueNode(struct node *node) {
   return current;
 }
 
-struct node* search(struct node* root, int key)
-{
-    // Base Cases: root is null or key is present at root
-    if (root == NULL || root->key == key){
-      printf("Element found!");
-       return root;
-    }
+// struct node* search(struct node* root, int key)
+// {
+//     // Base Cases: root is null or key is present at root
+//     if (root == NULL || root->key == key){
+//       printf("Element found!");
+//        return root;
+//     }
     
-    // Key is greater than root's key
-    if (root->key < key)
-       return search(root->right, key);
+//     // Key is greater than root's key
+//     if (root->key < key)
+//        return search(root->right, key);
  
-    // Key is smaller than root's key
-    return search(root->left, key);
+//     // Key is smaller than root's key
+//     return search(root->left, key);
+// }
+int search(struct node* root,int key)
+{
+    struct node *temp = root;
+ 
+    while (temp != NULL)
+    {
+        if (key == temp->key)
+        {
+            return 1;
+        }
+        else if (key > temp->key)
+        {
+            temp = temp->right;
+        }
+        else
+        {
+            temp = temp->left;
+        }
+    }
+    return 0;
 }
 
 // Deleting a node
@@ -109,7 +130,7 @@ struct node *deleteNode(struct node *root, int key) {
 // Driver code
 int main() {
   struct node *root = NULL;
-  int key;
+  int key,s;
   root = insert(root, 8);
   root = insert(root, 3);
   root = insert(root, 1);
@@ -129,5 +150,9 @@ int main() {
 
   printf("Enter node to be searched:\n");
   scanf("%d",&key);
-  search(root,key);
+  s=search(root,key);
+  if(s==1)
+    printf("element Found");
+  else
+    printf("Element not found");
 }
