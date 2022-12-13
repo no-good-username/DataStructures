@@ -55,6 +55,22 @@ struct node *minValueNode(struct node *node) {
   return current;
 }
 
+struct node* search(struct node* root, int key)
+{
+    // Base Cases: root is null or key is present at root
+    if (root == NULL || root->key == key){
+      printf("Element found!");
+       return root;
+    }
+    
+    // Key is greater than root's key
+    if (root->key < key)
+       return search(root->right, key);
+ 
+    // Key is smaller than root's key
+    return search(root->left, key);
+}
+
 // Deleting a node
 struct node *deleteNode(struct node *root, int key) {
   // Return if the tree is empty
@@ -93,6 +109,7 @@ struct node *deleteNode(struct node *root, int key) {
 // Driver code
 int main() {
   struct node *root = NULL;
+  int key;
   root = insert(root, 8);
   root = insert(root, 3);
   root = insert(root, 1);
@@ -109,4 +126,8 @@ int main() {
   root = deleteNode(root, 10);
   printf("Inorder traversal: ");
   inorder(root);
+
+  printf("Enter node to be searched:\n");
+  scanf("%d",&key);
+  search(root,key);
 }
